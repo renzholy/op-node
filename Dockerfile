@@ -11,6 +11,8 @@ RUN cd op-node && \
 
 FROM debian:bookworm-slim
 WORKDIR /app
-RUN apt-get install -y ca-certificates openssl
+RUN apt-get update && \
+  apt-get install -y ca-certificates openssl && \
+  rm -rf /var/lib/apt/lists
 COPY --from=build /app/op-node/bin/op-node ./
 ENTRYPOINT ["./op-node"]
