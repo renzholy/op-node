@@ -2,9 +2,7 @@ FROM golang:bookworm AS build
 WORKDIR /app
 ENV REPO=https://github.com/ethereum-optimism/optimism.git
 ENV VERSION=v1.9.0
-RUN git clone $REPO --branch op-node/$VERSION --single-branch . && \
-  git switch -c branch-$VERSION && \
-  bash -c '[ "$(git rev-parse HEAD)" = "$COMMIT" ]'
+RUN git clone $REPO --branch op-node/$VERSION --single-branch .
 RUN cd op-node && \
   make VERSION=$VERSION op-node
 
